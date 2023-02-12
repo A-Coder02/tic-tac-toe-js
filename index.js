@@ -3,10 +3,9 @@
 // 3. Basic AI and winner Notification
 // 4. Minmax Alogrithm
 
-let board;
-const HUMAN_PLAYER = "O";
-const AI_PLAYER = "X";
-let isHuman = true;
+var origBoard;
+const humanPlayer = "O";
+const aiPlayer = "X";
 const WIN_COMBOS = [
   [0, 1, 2],
   [3, 4, 5],
@@ -23,23 +22,23 @@ const cells = document.querySelectorAll(".cell");
 startGame();
 
 function startGame() {
-  //   document.querySelector(".endgame").style.display = "block";
-  board = Array.from(Array(9).keys());
-
+  // document.querySelector(".endgame").style.display = "block";
+  origBoard = Array.from(new Array(9).keys());
+  console.log(origBoard);
   for (let i = 0; i < cells.length; i++) {
-    cells[i].innerHTML = "";
+    cells[i].innerHTML = "-";
     cells[i].style.removeProperty("background-color");
-    cells[i].addEventListener("click", turnClick, false);
+    cells[i].addEventListener("click", turnClick, { once: true });
   }
 }
 
 function turnClick(square) {
-  console.log(square.target.id);
-  square.target.innerHTML = isHuman ? HUMAN_PLAYER : AI_PLAYER;
-  isHuman = !isHuman;
-  whoWin(square.target.id, isHuman);
+  turn(square.target.id, humanPlayer);
 }
 
-function whoWin(id,isHuman) {
-    
+function turn(squareId, player) {
+  console.log(squareId, player);
+  origBoard[squareId] = player;
+  console.log(document.getElementById(squareId));
+  document.getElementById(squareId).innerHTML = player;
 }
